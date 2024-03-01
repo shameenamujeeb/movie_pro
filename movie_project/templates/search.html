@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Search
+{% endblock %}
+{% block body %}
+<div>
+        <p class="text-center my_search_text">You have searched for:<b>"{{query}}"</b></p>
+</div>
+<div class="container">
+    <div class="row mx_auto">
+    {% for i in moves %}
+
+     <div class="col-md-3 mt-3">
+            <div class="card">
+                 <a href="{% url 'movies_app:movie_detail' i.id %}">
+                     <img class="card-img-top" src="{{i.image.url}}" alt="...." width="100px" height="250px"></a>
+
+        </div>
+     </div>
+
+{% empty %}
+<div class="row mx-auto">
+        <p class="text-center my_search_text">0 results found</p>
+</div>
+    {% endfor %}
+         </div>
+</div>
+
+<!--  <a href="{% url 'search_app:SearchResult' %}" class="btn btn-secondary w-100 mt-5">Back to Top</a>-->
+     {% endblock %}
+

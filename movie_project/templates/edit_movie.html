@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<!--delete movies-->
+<div class="container mt-5">
+<div class="row mx-auto">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-6" style="background-color:#333333">
+         <div class="row" >
+           <img src="{{mov_detail.image.url}}"  class="img-fluid w-100 d-flex" style="height:500px" >
+         </div>
+            <div class="text-white">
+                <h3>{{mov_detail.title}}</h3>
+                    <div class="my_font1">
+                        <p>{{mov_detail.release_date}} | {{mov_detail.language}} | {{mov_detail.genere}}</p>
+                    </div>
+                    {{mov_detail.description}}
+
+                        <div class="my_font1">
+                             <p>Starring : {{mov_detail.actors}}</p>
+                                Trailer : <a href="{{mov_detail.link}}">{{mov_detail.link}}</a>
+                                <br>
+                                Created Date : {{mov_detail.created}}<br>
+                                Updated Date : {{mov_detail.updated}}
+                        </div>
+                            <div class="text-center text-dark mt-3">
+                                 <a href="{% url 'profile_app:delete_movie' mov_detail.id %}" class= "btn btn-danger " style="z-index: 1;">Delete Movie</a>
+                        </div>
+                </div>
+        </div>
+<!--    edit movies-->
+<div class="col-12 col-md-12 col-sm-12 col-lg-6  ">
+      <div class="container d-flex justify-content-center  " >
+
+        <div class="row border p-3 box-area my_box_area border border-dark font_color1 " style="background-color:#333333">
+            <div class="mb-3">
+                <div class="text-center">
+                         <h3>Edit Movie</h3>
+                </div>
+<form method="POST" enctype="multipart/form-data">
+   {% csrf_token %}
+ {{frm.as_p}}
+    <div class="text-center">
+        <input type="submit" value="Update" class="btn btn-danger">
+    </div>
+</form>
+
+            </div>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+
+</div>
+{% endblock %}

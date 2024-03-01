@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<!--add movies-->
+<body>
+   <div class="container d-flex justify-content-center mt-3 " >
+        <div class="row border p-3  box-area my_box_area border border-dark font_color1" style="background-color:#333333">
+            <div class="mb-3">
+                <div class="text-center mb-4">
+                         <h3>Add Movies</h3>
+                </div>
+<form  method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{frm.as_p}}
+    <button class="btn btn-danger w-100">Add Movie</button>
+</form>
+   </div>
+        </div>
+   </div>
+{% endblock %}

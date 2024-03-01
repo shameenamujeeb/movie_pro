@@ -1,0 +1,132 @@
+body{
+    font-family: 'Hind Siliguri', sans-serif;
+    font-family: 'PT Sans', sans-serif;
+}
+.nav-item{
+letter-spacing :.2em;
+font-size :14px;
+text-transform: uppercase;
+}
+.dropdown-item{
+letter-spacing :.2em;
+font-size :14px;
+text-transform: uppercase;
+}
+/*footer*/
+.my_footer{
+background-color:grey;
+height:60px;
+
+}
+.my_footer p{
+padding-top:20px;
+font-size:14px;
+}
+
+.my_bg{
+background-color: black;
+}
+.my_font1{
+
+font-weight:700;
+font-size:16px;
+
+}
+
+/*registration*/
+.my_box_area{
+
+background-color: black;
+
+}
+.area2{
+width: 400px;
+height:930px;
+}
+.area3{
+width: 600px;
+height:900px;
+}
+.my_box_area1{
+width: 350px;
+height: 450px;
+background-color: black;
+
+}
+.cont_1{
+padding-top:200px;
+
+}
+.font_color1{
+color:white;
+
+}
+
+.msg{
+font-color:red;
+font-size:13;
+}
+.profile-menu .dropdown-menu {
+  right: 0;
+  left: unset;
+}
+
+
+/* Rating and review*/
+.star{
+font-size: 10px;
+color:grey;
+}
+
+.check-star{
+font-size: 10px;
+}
+
+.checked {
+  color: orange;
+}
+.rate > input{
+display: none;
+}
+.rate {
+display: inline-block;;
+border: 0;
+}
+
+.rate > label{
+  float: right;
+}
+
+
+/*showing stars*/
+.rate > label:before {
+    display: inline-block;
+     font-size: 1.1em;
+    font-family: FontAwesome;
+     content: "\f005";
+     margin: 0;
+  padding:0.3rem .2rem;
+  cursor: pointer;
+}
+/*click and hover*/
+
+input:checked ~ label, label:hover ~ label{
+color: #ffb503;
+}
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #F79426;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+  color: #FECE31;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container-fluid rounded my-3 border" style="background-color:#333333">
+   <div class="row" >
+        <div class="col-md-5 pl-0">
+           <img src="{{mov_detail.image.url}}"  class="img-fluid w-100 d-flex rounded" style="height:500px" >
+   </div>
+
+     <div class="col-md-7">
+    <div class="text-white mt-3">
+        <h3>{{mov_detail.title}}</h3>
+            <div class="my_font1">
+                <p>{{mov_detail.release_date}} | {{mov_detail.language}} | {{mov_detail.genere}}</p>
+            </div>
+            {{mov_detail.description}}
+
+            <div class="my_font1">
+                <p>Starring : {{mov_detail.actors}}</p>
+
+                 <a class href="{{mov_detail.link}}"><button class="mb-3 btn btn-danger btn-sm" style="font-size:24px">  Play Trailer<i class="fa fa-play-circle"></i></button></a>
+           </div>  </div>
+    </div>
+    </div>
+</div>
+
+<!--User Reviews>-->
+<div class="container p-3 my-3 border">
+    <div class="row">
+        <h5 class="pl-3"> Write Your Reviews</h5>
+        <form class="d-flex"  method="POST" action="add_review/" >
+           {% csrf_token %}
+</div>
+        <div >
+<!--rating stars-->
+            <label>Rate this Movie</label><br>
+            <div class="rate">
+                <input type="radio" id="star5" name="rating" value="5" />
+                <label for="star5" title="5 stars"></label>
+                <input type="radio" id="star4" name="rating" value="4" />
+                <label for="star4" title="4 stars"></label>
+                <input type="radio" id="star3" name="rating" value="3" />
+                <label for="star3" title="3 stars"></label>
+                <input type="radio" id="star2" name="rating" value="2" />
+                <label for="star2" title="2 stars"></label>
+                <input type="radio" id="star1" name="rating" value="1" />
+                <label for="star1" title="1 star"></label>
+            </div>
+<!--review form-->
+            <br>
+                Review:
+                     <textarea class="form-control" rows="4" cols="5" placeholder="Write Review" name="review" ></textarea>
+                        <br>
+                         {% if user.is_authenticated %}
+                         <input type="submit" value="Submit" class="btn btn-dark">
+                        {% else %}
+                             <p> You must be logged in to post a review <span> <a href="{% url 'user_reg:login' %}">Login</a></span></p>
+                        {% endif %}
+        </div>
+
+      </form>
+<!--    alert messages -->
+                {% for msg in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                         <strong>{{msg}}</strong>
+                        <button class="close"  data-bs-dismiss="alert" aria-label="Close"></button>
+
+                       </div>
+                {% endfor %}
+    </div>
+<!--show revie and rating-->
+ <div class="container border p-3  mb-5">
+     <h4>Review & Ratings </h4>
+     {% if not review %}
+        <p> No Reviews Yet</p>
+     {% endif %}
+        {% for r in review %}
+            <div class="card mt-3 mb-3" >
+                <div class="shadow card " style="height:150px;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="card-title text-black mt-0 pl-2" style="font-size:18px">{{r.username}}</p>
+                                    <div class=" d-flex flex-column" style="width: 50px;">
+                                        <img src="{% static 'images/avatar.jpg' %}">
+
+                                 </div>
+                           </div>
+<!--showing stars-->
+                         <div class="col-md-10">
+                             {% if r.rating > 0 %}
+                  <i class="fa fa-star {% if r.rating  < 1 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                  <i class="fa fa-star {% if r.rating  < 2 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                  <i class="fa fa-star {% if r.rating  < 3 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                  <i class="fa fa-star {% if r.rating  < 4 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+                  <i class="fa fa-star {% if r.rating  < 5 %} no-checked {% else %} checked {% endif %} " id="check-star"></i>
+
+                {% else %}
+
+                 <i class="fa fa-star " id="star"></i>
+                 <i class="fa fa-star" id="star"></i>
+                 <i class="fa fa-star" id="star"></i>
+                 <i class="fa fa-star" id="star"></i>
+                 <i class="fa fa-star" id="star"></i>
+                        &nbsp;<span>No ratings</span>
+                             {% endif %}
+
+                            <p><b>{{r.review}}</b></p>
+                                {% if user.is_authenticated %}
+                                {% if user.username == r.username %}
+                                        <p><a href="{% url 'movies_app:delete_review' mov_detail.id r.id %}">Delete</a></p>
+                                {% endif %}
+                                {% endif %}
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     {% endfor %}
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+

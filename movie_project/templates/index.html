@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<div class="container-fluid w-75 ">
+   <div class="row">
+<!-- Image and text -->
+
+{% block body %}
+    {% if category %}
+    <div class="container">
+        <div>
+            <p><a href="{% url 'movies_app:index' %}"></a></p>
+        </div>
+
+    {% endif %}
+        {% if category %}
+        <div>
+            <h3>{{category.title}}</h3>
+        </div>
+         </div>
+    {% else %}
+ <div class="container-fluid my-3   pl-0 pr-0">
+        <img src="{% static 'images/images3.jpg' %}" alt="Movie Collecton"  class="img-fluid w-100 d-flex mb-3" style="height:500px;" >
+            <div class="mb-3 text-white">
+
+            </div>
+
+    {% endif %}
+
+<!--display movie-->
+<div class="container">
+    <div class="row">
+        {% for mov in movielist.object_list %}
+        <div class="col-md-3 mt-3">
+            <div class="card">
+                 <a href="{% url 'movies_app:movie_detail' mov.id %}">
+                     <img class="card-img-top" src="{{mov.image.url}}" alt="...." width="100px" height="250px"></a>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    <nav aria-label="..." class="">
+        {% if movielist.has_other_pages %}
+        <ul class="pagination mt-3 justify-content-center">
+        {% if movielist.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{movielist.previous_page_number}}">Previous</a></li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Previous</span>
+        </li>
+        {% endif %}
+      {% for i in movielist.paginator.page_range %}
+      {% if movielist.number == i %}
+         <li class="page-item active" aria-current="page"><a class="page-link" href="#">{{i}}</a>
+        {% else %}
+        </li>
+        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+        {% endif %}
+        {% endfor %}
+      {% if movielist.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{movielist.next_page_number}}">Next</a></li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">Next</span> </li>
+      {% endif %}
+    </ul>
+        {% endif %}
+    </nav>
+</div>
+        </div>
+     </div>
+{% endblock %}
+

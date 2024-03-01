@@ -1,0 +1,65 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#242124;">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'movies_app:index' %}">
+            <img src="{% static 'images/images2.png' %}" alt="Movie Collecton" style="height:43px;width:130px;" >
+         </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item dropdown {% if movies_app.path %} active {% endif %}"></li>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Generes
+                    </a>
+
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                {% for cat in links %}
+
+                     <li><a class="dropdown-item" href="{{cat.get_url}}"> {{cat.title}}</a></li>
+                {% endfor %}
+            </ul>
+
+             </ul>
+<!--            search bar-->
+                 <form class="d-flex" action="{% url 'search_app:SearchResult' %}" method="get">
+                    {% csrf_token %}
+                        <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search" name="q">
+                             <div class="col-md-2">
+                                <button class="btn btn-outline-dark" type="submit" style="color:white"><i class="fa-solid fa-magnifying-glass"></i> </button>
+                            </div>
+                </form>
+        </div>
+<!--      profile menu-->
+            <ul class="nav navbar-nav navbar-right ">
+                 {% if user.is_authenticated %}
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 profile-menu">
+                        <li class="nav-item dropdown {% if movies_app.path %} active {% endif %}"></li>
+                            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown1"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-user"></i> {{user.username}}
+                            </a>
+
+                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                        <li ><a class="dropdown-item" href="{% url 'movies_app:add_movie' user.id %}" style="color:black" > Add Movies</a></li>
+                        <li ><a class="dropdown-item" href="{% url 'profile_app:profile' %}" style="color:black" > Profile</a></li>
+                        <li ><a class="dropdown-item" href="{% url 'user_reg:logout' %}"  style="color:black" > Log Out</a></li>
+
+
+                   {% else %}
+                        <li class="pr-3"><a href="{% url 'user_reg:register' %}"style="color:white" class="btn btn-danger btn-sm"> Sign Up</a></li>
+                        <li><a href="{% url 'user_reg:login' %}" style="color:white" class="btn btn-danger btn-sm"> LogIn</a></li>
+                {% endif %}
+                    </ul>
+            </ul>
+            </ul>
+  </div>
+</nav>
